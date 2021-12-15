@@ -1,10 +1,12 @@
 package net.hon.kou.jetpack_compose_pathways
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.shape.CircleShape
@@ -41,12 +43,23 @@ fun MessageCard(msg: Message) {
             modifier = Modifier
                 .size(40.dp)
                 .clip(CircleShape)
+                .border(1.5.dp, MaterialTheme.colors.secondary, CircleShape)
         )
         Spacer(modifier = Modifier.width(8.dp))
         Column {
-            Text(text = msg.author)
+            Text(
+                text = msg.author,
+                color = MaterialTheme.colors.secondary,
+                style = MaterialTheme.typography.subtitle2
+            )
             Spacer(modifier = Modifier.height(4.dp))
-            Text(text = msg.body)
+            Surface(shape = MaterialTheme.shapes.medium, elevation = 1.dp) {
+                Text(
+                    text = msg.body,
+                    modifier = Modifier.padding(all = 4.dp),
+                    style = MaterialTheme.typography.body2
+                )
+            }
         }
     }
 }
@@ -56,7 +69,12 @@ fun Greeting(name: String) {
     Text(text = "Hello $name!")
 }
 
-@Preview(showBackground = true)
+@Preview(name = "Light Mode")
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    name = "Dark Mode"
+)
 @Composable
 fun DefaultPreview() {
     JetpackcomposepathwaysTheme {
